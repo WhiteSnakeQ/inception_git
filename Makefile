@@ -10,7 +10,7 @@ folders:
 	@bash srcs/requirements/tools/make_dir.sh
 
 setub:
-	sudo apt update -y && sudo apt install -y sudo ufw docker docker-compose \
+	sudo apt update -y && sudo apt install -y sudo ufw docker git docker-compose \
 		make openbox xinit kitty firefox-esr
 	sudo ufw allow 80; sudo ufw allow 42; sudo ufw allow 443; sudo ufw allow 21; sudo ufw allow 9443; \
 		sudo ufw allow 8080;
