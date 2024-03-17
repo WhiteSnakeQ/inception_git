@@ -21,7 +21,7 @@ setub:
 	sudo mv mkcert-v*-linux-amd64 mkcert
 	sudo chmod a+x mkcert
 	sudo mv mkcert /usr/local/bin/
-	sudo sed "1 s|localhost|${USER}.42.fr localhost|"  /etc/hosts
+	sudo sed -i "1 s|localhost|${USER}.42.fr localhost|"  /etc/hosts
 
 build:	folders
 	@printf "Building configuration ${NAME}...\n"
