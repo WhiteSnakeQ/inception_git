@@ -2,7 +2,7 @@ NAME	= inception
 
 DOC_F	= docker-compose -f ./srcs/docker-compose.yml --env-file srcs/.env
 
-all:
+all:	folders
 	@printf "Launch configuration ${NAME}...\n"
 	@${DOC_F} up -d
 
@@ -22,11 +22,10 @@ setub:
 	sudo chmod a+x mkcert
 	sudo mv mkcert /usr/local/bin/
 	sudo sed "1 s|localhost|${USER}.42.fr localhost|"  /etc/hosts
-build:
+
+build:	folders
 	@printf "Building configuration ${NAME}...\n"
 	@${DOC_F} up -d --build
-	@docker stop portainer
-	@docker rm portainer
 	@docker volume create portainer_data
 	@docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
 	--restart=always -v /var/run/docker.sock:/var/run/docker.sock \
@@ -35,6 +34,8 @@ build:
 down:
 	@printf "Stopping configuration ${NAME}...\n"
 	@${DOC_F} down
+	@docker	stop portainer
+	@docker	rm portainer
 
 re:
 	@printf "Rebuild configuration ${NAME}...\n"
