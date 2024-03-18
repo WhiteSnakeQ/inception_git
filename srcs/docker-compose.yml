@@ -16,7 +16,7 @@ services:
       - ./requirements/nginx/conf/:/etc/nginx/http.d/
       - ./requirements/nginx/tools:/etc/nginx/ssl/
       - wp-volume:/var/www/
-    restart: always
+    restart: on-failure
 
   mariadb:
     container_name: mariadb
@@ -34,7 +34,7 @@ services:
       - inception
     volumes:
       - db-volume:/var/lib/mysql
-    restart: always
+    restart: on-failure
 
   wordpress:
     container_name: wordpress
@@ -51,7 +51,7 @@ services:
       - inception
     volumes:
       - wp-volume:/var/www/
-    restart: always
+    restart: on-failure
 
   redis:
     container_name: redis
@@ -64,7 +64,7 @@ services:
       - "6379:6379"
     networks:
       - inception
-    restart: always
+    restart: on-failure
 
   vsftpd:
     container_name: vsftpd
@@ -82,7 +82,7 @@ services:
       - wp-volume:/var/www/
     networks:
      - inception
-    restart: always
+    restart: on-failure
 
   adminer:
     container_name: adminer
@@ -95,7 +95,7 @@ services:
       - "8080:8080"
     networks:
      - inception
-    restart: always
+    restart: on-failure
 
   website:
     container_name: website
@@ -104,18 +104,7 @@ services:
       dockerfile: requirements/bonus/website/Dockerfile
     ports:
       - "80:80"
-    restart: always
-
-#  portainer:
-#   container_name: portainer
-#   image: portainer-ce:2.11.1
-#    ports:
-#      - "8000:8000"
-#      - "9443:9443"
-#    volumes: 
-3      - /var/run/docker.sock:/var/run/docker.sock
-#      - portainer_data:/data
-#    restart: always
+    restart: on-failure
 
 volumes:
   wp-volume:
